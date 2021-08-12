@@ -1,5 +1,4 @@
 //O(m + n)  O(m + n)
-//O(log(m + n))  O(1)
 
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
@@ -27,5 +26,26 @@ class Solution {
         else {
             return (arr[n / 2] + arr[n / 2 - 1]) / 2.0;
         }
+    }
+}
+
+//O(log(m + n))  O(1)
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int l1 = 0, r1 = nums1.length - 1, l2 = 0, r2 = nums2.length - 1;
+        int m1, m2;
+        while (l1 <= r1 && l2 <= r2) {
+            m1 = (l1 + r1) / 2;
+            m2 = (l2 + r2) / 2;
+            if (nums1[m1] < nums2[m2]) {
+                l1 = m1 + 1;
+                r2 = m2 - 1;
+            }
+            else {
+                r1 = m1 - 1;
+                l2 = m2 + 1;
+            }
+        }
+        
     }
 }
