@@ -1,5 +1,6 @@
 class Solution {
     public int sumNums(int n) {
-        return (1 + n) * n / 2;
+        boolean b = n > 1 && (n += sumNums(n - 1)) > 0;
+        return n;
     }
 }
