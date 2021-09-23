@@ -18,11 +18,7 @@ class Solution {
                     while (second + 1 < third && nums[third] == nums[third - 1]) {
                         third--;
                     }
-                    List<Integer> tmp = new ArrayList<Integer>();
-                    tmp.add(nums[first]);
-                    tmp.add(nums[second]);
-                    tmp.add(nums[third]);
-                    ans.add(tmp);
+                    ans.add(Arrays.asList(nums[first], nums[second], nums[third]));
                     second++;
                     third--;
                 }
