@@ -18,3 +18,34 @@ class Solution {
         Arrays.sort(nums);
     }
 }
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if (nums.length == 1) {
+            return;
+        }
+        int i, j;
+        for (i = nums.length - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1]) {
+                break;
+            }
+        }
+        if (i == -1) {
+            reverse(nums, i + 1);
+            return;
+        }
+        for (j = nums.length - 1; j > i && nums[j] <= nums[i];j--) {}
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+        reverse(nums, i + 1);
+    }
+
+    public void reverse(int[] nums, int start) {
+        for (int i = 0; i < (nums.length - start) / 2; i++) {
+            int tmp = nums[start + i];
+            nums[start + i] = nums[nums.length - i - 1];
+            nums[nums.length - i - 1] = tmp;
+        }
+    }
+}
