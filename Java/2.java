@@ -44,3 +44,39 @@ class Solution {
         return res;
     }
 }
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode p = l1, q = l2, pre = null;
+        int carry = 0;
+        while (p != null && q != null) {
+            int sum = p.val + q.val + carry;
+            carry = sum / 10;
+            p.val = sum % 10;
+            pre = p;
+            p = p.next;
+            q = q.next;
+        }
+        while (p != null) {
+            int sum = p.val + carry;
+            carry = sum / 10;
+            p.val = sum % 10;
+            pre = p;
+            p = p.next;
+        }
+        if (q != null) {
+            pre.next = q;
+            while (q != null) {
+                int sum = q.val + carry;
+                carry = sum / 10;
+                q.val = sum % 10;
+                pre = q;
+                q = q.next;
+            }
+        }
+        if (carry != 0) {
+            pre.next = new ListNode(carry);
+        }
+        return l1;
+    }
+}
