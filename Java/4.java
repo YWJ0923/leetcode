@@ -29,23 +29,44 @@ class Solution {
     }
 }
 
-//O(log(m + n))  O(1)
+// O(log(m + n))  O(1)
+// 转换成找两个有序数组中第k小的数
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int l1 = 0, r1 = nums1.length - 1, l2 = 0, r2 = nums2.length - 1;
-        int m1, m2;
-        while (l1 <= r1 && l2 <= r2) {
-            m1 = (l1 + r1) / 2;
-            m2 = (l2 + r2) / 2;
-            if (nums1[m1] < nums2[m2]) {
-                l1 = m1 + 1;
-                r2 = m2 - 1;
-            }
-            else {
-                r1 = m1 - 1;
-                l2 = m2 + 1;
-            }
+        int len1 = nums1.length, len2 = nums2.length;
+        int len = len1 + len2;
+        if ((len & 1) == 0) {
+            return (getKthElement(nums1, nums2, len / 2) + getKthElement(nums1, nums2, len / 2 + 1)) / 2;
+        } else {
+            return getKthElement(nums1, nums2, len / 2 + 1);
         }
-        
+    }
+
+    public double getKthElement(int[] nums1, int[] nums2, int k) {
+        int len1 = nums1.length, len2 = nums2.length;
+        int index1 = 0, index2 = 0;
+        while (true) {
+            if (index1 == len1) {
+                return nums2[index2 + k - 1];
+            }
+            if (index2 == len2) {
+                return nums1[index1 + k - 1];
+            }
+            if (k == 1) {
+                return Math.min(nums1[index1], nums2[index2]);
+            }
+            int newIndex1 = index1, newIndex2 = index2;
+            int tmp1 = Math.min(len1 - 1, index1 + k / 2 - 1);
+            int tmp2 = Math.min(len2 - 1, index2 + k / 2 - 1);
+            if (nums1[tmp1] <= nums2[tmp2]) {
+                newIndex1 = tmp1 + 1;
+                k -= (newIndex1 - index1);
+            } else {
+                newIndex2 = tmp2 + 1;
+                k -= (newIndex2 - index2);
+            }
+            index1 = newIndex1;
+            index2 = newIndex2;
+        }
     }
 }
