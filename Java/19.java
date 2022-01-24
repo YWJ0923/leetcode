@@ -29,3 +29,22 @@ class Solution {
         return head;
     }
 }
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode pre = null, p = head, q = head;
+        for (int i = 0; i < n; i++) {
+            q = q.next;
+        }
+        while (q != null) {
+            pre = p;
+            p = p.next;
+            q = q.next;
+        }
+        if (pre == null) {
+            return head.next;
+        }
+        pre.next = p.next;
+        return head;
+    }
+}

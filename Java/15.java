@@ -34,3 +34,38 @@ class Solution {
         return ans;
     }
 }
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (nums.length < 3) {
+            return ans;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int k = nums.length - 1;
+            for (int j = i + 1; j < k; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                while (j < k && nums[i] + nums[j] + nums[k] > 0) {
+                    k--;
+                }
+                if (j == k) {
+                    break;
+                }
+                if (nums[i] + nums[j] + nums[k] == 0) {
+                    List<Integer> tmp = new ArrayList<>();
+                    tmp.add(nums[i]);
+                    tmp.add(nums[j]);
+                    tmp.add(nums[k]);
+                    ans.add(tmp);
+                }
+            }
+        }
+        return ans;
+    }
+}
