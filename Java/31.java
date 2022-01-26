@@ -49,3 +49,24 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 2, mark1 = 0, mark2 = 0;
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+        if (i >= 0) {
+            int j = nums.length - 1;
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+            int tmp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tmp;
+            Arrays.sort(nums, i + 1, nums.length);
+        } else {
+            Arrays.sort(nums);
+        }
+    }
+}

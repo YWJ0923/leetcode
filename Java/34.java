@@ -10,3 +10,35 @@ class Solution {
         return new int[]{low + 1, high - 1};
     }
 }
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int left = 0, right = nums.length - 1, mid;
+        int ans1 = -1, ans2 = -1;
+        while (left <= right) {
+            mid = (left + right) >> 1;
+            if (nums[mid] == target) {
+                ans1 = mid;
+                right = mid - 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        left = 0;
+        right = nums.length - 1;
+        while (left <= right) {
+            mid = (left + right) >> 1;
+            if (nums[mid] == target) {
+                ans2 = mid;
+                left = mid + 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return new int[]{ans1, ans2};
+    }
+}
