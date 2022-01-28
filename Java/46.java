@@ -23,3 +23,29 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> tmp = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        backTrace(ans, tmp, set, nums);
+        return ans;
+    }
+
+    public void backTrace(List<List<Integer>> ans, List<Integer> tmp, Set<Integer> set, int[] nums) {
+        if (tmp.size() == nums.length) {
+            ans.add(new ArrayList<Integer>(tmp));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (!set.contains(nums[i])) {
+                tmp.add(nums[i]);
+                set.add(nums[i]);
+                backTrace(ans, tmp, set, nums);
+                set.remove(nums[i]);
+                tmp.remove(tmp.size() - 1);
+            }
+        }
+    }
+}
